@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from PIL import ImageTk, Image, ImageFilter
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from moviepy.editor import *
+
 
 """ Animate the original image (based on the current blur value - which would NEED to be stored or accessed!)"""
 def animate():
