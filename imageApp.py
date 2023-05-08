@@ -9,15 +9,15 @@ def animate():
     global original_image
     # Create list of frames for gif
     frames = []
-    
+    print(scaleVal)
     # Add frames going from original to blurred
-    for i in range(0, 101, 5):
+    for i in range(0, scaleVal + 1, 5):
         blur_radius = i / 5
         blurred_image = original_image.filter(ImageFilter.BoxBlur(radius=blur_radius))
         frames.append(blurred_image)
     
     # Add frames going from blurred image to original image
-    for i in range(100, -1, -5):
+    for i in range(scaleVal, -1, -5):
         blur_radius = i / 5
         blurred_image = original_image.filter(ImageFilter.BoxBlur(radius=blur_radius))
         frames.append(blurred_image)
@@ -32,8 +32,9 @@ def animate():
     
     animation_label = tk.Label(animation)
     animation_label.pack()
-    
+
     gif = Image.open('blur_animation.gif')
+   
     animation_frames = []
     try:
         while True:
@@ -47,7 +48,7 @@ def animate():
         animation.after(50, update_animation, (frame_index + 1) % len(animation_frames))
         
     update_animation(0)
-
+        
 def save_image():
     file_type = [('Jpg files', '*.jpg')]
     filename = tk.filedialog.asksaveasfilename(filetypes = file_type, defaultextension='.jpg')
@@ -61,6 +62,8 @@ def save_image():
 def slide_activate(v):
     global original_image
     global blurred_image
+    global scaleVal
+    scaleVal = int(v)
     # TO DO: Check that an image has been selected - or else ignore (or report an error)
     # print("You have selected a blur value of " + v)
     v = int(v)/5 # Convert to integer (and scale it - way too blurry otherwise)
@@ -94,15 +97,14 @@ root.geometry("500x500")
 frame = Frame(root, width = 600, height = 400)
 frame.pack()
 frame.place(anchor='center', relx=0.5, rely=0.5)
-label = tk.Label(root, text = "upload a file")
 button = tk.Button(root, text = "Upload File", width = 20, command = upload_file)
 image_label = tk.Label(root)  # This will be used to display the image
 original_imag = None # This variable will store the ORIGINAL image once loaded (keeping here so global scope)
 
-global scaleVal
-horizontal = Scale(root, from_= 0, to= 100, resolution=10, orient=HORIZONTAL, length= 200, command = slide_activate)
+#global scaleVal
+global horizontal
+horizontal = Scale(root, from_= 1, to= 100, resolution=10, orient=HORIZONTAL, length= 200, command = slide_activate)
 horizontal.pack(side = 'bottom')
-scaleVal = horizontal.get()
 
 button2 = Button(root, text = "Click to Animate the Image", bd = 5, command = animate)
 button2.pack(side = 'bottom')
@@ -112,7 +114,7 @@ save_button.pack(side='bottom')
 
     
 #my_label = Label(root, text = "hello")
-label.pack()
+
 button.pack()
 
 root.mainloop()
