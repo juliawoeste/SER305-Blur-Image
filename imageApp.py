@@ -27,7 +27,7 @@ def animate():
     
     # Open gif in new window
     animation = tk.Toplevel(root)
-    animation.title("Blurring Animation")
+    animation.title("Animate.io")
     animation.geometry("300x300")
     
     animation_label = tk.Label(animation)
@@ -91,7 +91,7 @@ def set_image(img):
     image_label.pack()
 
 root = tk.Tk()
-root.title("Blur an Image!")
+root.title("Blur.io")
 root.geometry("800x600")
 
 root.configure(bg='#062b66') #####
@@ -123,6 +123,6 @@ save_button.pack(side='bottom')
     
 #my_label = Label(root, text = "hello")
 
-button.pack()
+button.pack(pady=15)
 
 root.mainloop()
