@@ -76,7 +76,7 @@ def upload_file():
     file_type = [('Jpg files', '*.jpg'), ('PNG files', '*.png')]
     filename = tk.filedialog.askopenfilename(filetypes = file_type)
     original_image = Image.open(filename)
-    original_image=original_image.convert('RGBA').resize((250,250)) 
+    original_image=original_image.convert('RGBA').resize((350,350)) 
     # Note. Had to convert to RGBA b/c there were issues with BoxBlur running on PNG files.
     # Could be more robust and only do this if image was PNG.
     set_image(original_image)
@@ -92,24 +92,32 @@ def set_image(img):
 
 root = tk.Tk()
 root.title("Blur an Image!")
-root.geometry("500x500")
+root.geometry("800x600")
 
-frame = Frame(root, width = 600, height = 400)
+root.configure(bg='#062b66') #####
+
+
+frame = Frame(root, width = 700, height = 500)
+
+frame.configure(bg='#062b66') #####
+
+photo = PhotoImage(file='download.png')
+
 frame.pack()
 frame.place(anchor='center', relx=0.5, rely=0.5)
-button = tk.Button(root, text = "Upload File", width = 20, command = upload_file)
+button = tk.Button(root, text = "Upload File",bd=0, pady=15,padx=100,foreground='black',font=('Sana',17),command = upload_file)
 image_label = tk.Label(root)  # This will be used to display the image
 original_imag = None # This variable will store the ORIGINAL image once loaded (keeping here so global scope)
 
 #global scaleVal
 global horizontal
-horizontal = Scale(root, from_= 1, to= 100, resolution=10, orient=HORIZONTAL, length= 200, command = slide_activate)
+horizontal = Scale(root, from_= 0, to= 100, resolution=10, orient=HORIZONTAL, length= 200,bd=3,background='black',foreground='white', command = slide_activate)
 horizontal.pack(side = 'bottom')
 
-button2 = Button(root, text = "Click to Animate the Image", bd = 5, command = animate)
+button2 = Button(root, text = "Click to Animate the Image", bd=0,pady=10,padx=25,foreground='black',font=('Sana',14), command = animate)
 button2.pack(side = 'bottom')
 
-save_button = Button(root, text="Save Image", bd=5, command=save_image)
+save_button = Button(root, text="Save Image", bd=0,pady=10,padx=25,foreground='black',font=('Sana',14), command=save_image)
 save_button.pack(side='bottom')
 
     
